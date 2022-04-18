@@ -1,0 +1,77 @@
+{
+    "Settings": {
+        "comment": "Path to a directory or file",
+        "LogPath": "C:\\Users\\UserName\\Desktop\\log\\",
+
+        "comment": "Enable or disable syscalls (apicalls currently not available) hooks",
+        "IsApicallsEnabled": true,
+        "IsSyscallsEnabled": true,
+
+        "comment": "This value is used for the number of frames to check to protect against self-hooking (if the value is too small you will get crash)",
+        "MaxFrame": 40,
+
+        "comment": "Conditions for outputting a string to the log",
+        "MaxStrLength": 300,
+        "MinStrLength": 3,
+
+        "comment": "Will read a pointer until the type is determined",
+        "MaxPointer": 2
+    },
+    "Syscalls": {
+        "comment": "Specify library name",
+        "ntdll.dll": {
+            "comment": "'All' means that you want to hook all existed syscalls from the library",
+            "All": {
+                "comment": "If you want log a function you should enable it (disabled by default)",
+                "enabled": true,
+
+                "comment": "If you want log events (functions with prefix '$' for example $ProtectVirtualMemory) you should enable it",
+                "event_enabled": true,
+
+                "comment": "Syscalls are handling before (has no any prefix) and after (has prefix '~') execution you can customize it",
+                "log_before": true,
+                "log_after": true,
+
+                "comment": "Events are handling twice too",
+                "event_log_before": true,
+                "event_log_after": true,
+
+                "comment": "You can choose which types should be logged (not for events and disabled by default)",
+                "char": true,
+                "widechar": true,
+                "ansi_string": true,
+                "unicode_string": true,
+                "process": true,
+                "mutant": true,
+                "file": true,
+                "thread": true,
+                "section": true,
+                "regkey": true
+            },
+            "comment": "If you want to hook a syscalls by name you should use 'Name' like this",
+            "Name": {
+                "comment": "In this case, the flags and types of this function will be redefined here",
+                "NtCreateFile": {
+                    "enabled": false
+                }
+            },
+            "comment": "Find a syscall by id",
+            "Id": {
+                "comment": "0x43 == NtContinue",
+                "0x43": {
+                    "enabled": false
+                }
+            }
+        },
+        "win32u.dll": {
+            "All": {
+                "enabled": true,
+                "event_enabled": true,
+                "log_before": true,
+                "log_after": true,
+                "event_log_before": true,
+                "event_log_after": true
+            }
+        }
+    }
+}
